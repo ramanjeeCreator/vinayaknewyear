@@ -16,6 +16,22 @@ body {
   touch-action: pan-y;
 }
 
+.info {
+  scale: 2.8;
+  position: absolute;
+  color: #8e8888;
+  bottom: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.info div {
+  width: 80%;
+  text-align: center;
+}
+
 /* ================= PARALLAX STARS ================= */
 .star-layer {
   position: absolute;
@@ -720,6 +736,7 @@ circle {
   font-family: cursive;
   display: none;
   scale: 2.4;
+  user-select: none;
 }
 
 .card-title{
