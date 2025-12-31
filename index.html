@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Surprise Card</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        .material-symbols-outlined {
+            font-size: 64px !important;
+            color: #fff;
+            pointer-events: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+
+    <!-- STAR LAYERS -->
+    <div class="star-layer" id="stars-far"></div>
+    <div class="star-layer" id="stars-mid"></div>
+    <div class="star-layer" id="stars-near"></div>
+
+    <!-- SHOOTING STARS -->
+    <div class="shooting-stars">
+        <section>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </section>
+    </div>
+
+    <!-- CARD -->
+    <div class="main-card" id="main-card">
+        <h2>A little surprise for you</h2>
+        <p>Before this year begins</p>
+
+        <div class="progress-ring" id="ring">
+            <svg width="120" height="120">
+                <circle class="bg" cx="60" cy="60" r="50" />
+                <circle class="progress" cx="60" cy="60" r="50" />
+            </svg>
+            <div class="heart" id="heart">❤️</div>
+        </div>
+
+        <div class="tap">Tap & hold</div>
+    </div>
+
+    <!-- ================= SCENE ================= -->
+    <div class="tinder" id="tinderbox">
+
+        <div class="tinder--cards">
+            <div class="tinder--card card1">
+                <span class="material-symbols-outlined">weather_snowy</span>
+                <h3>Bad Days</h3>
+            </div>
+            <div class="tinder--card card2">
+                <span class="material-symbols-outlined">checked_bag</span>
+                <h3>Work</h3>
+            </div>
+            <div class="tinder--card card3">
+                <span class="material-symbols-outlined">neurology</span>
+                <h3>Stress</h3>
+            </div>
+            <div class="tinder--card card4">
+                <span class="material-symbols-outlined">location_on</span>
+                <h3>Distance</h3>
+            </div>
+            <div class="box" id="redbox" onclick="blastBox(this)">
+                <span class="material-symbols-outlined" style="color: #eee;">
+                    featured_seasonal_and_gifts
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="voucherCont animate__animated animate__fadeInDown">
+        <div class="voucher1">
+            <div><span class="material-symbols-outlined color-brown">
+                    local_activity
+                </span></div>
+            <h3>Golden Ticket</h3>
+        </div>
+        <div class="voucher2">
+            <div class="span1">Valid for every day ahead</div>
+            <div class="span2">"Unlimited Love & Smiles"</div>
+            <div class="span3">No expiration date</div>
+            <div class="span4" onclick="runTinder2()">Claim ticket ></div>
+        </div>
+    </div>
+
+    <div class="tinder1 animate__animated">
+        <h1 style="font-family: cursive; color: #eee;text-align: center; padding-top: 20px;">Some of our moments</h1>
+        <div class="tinder1--cards">
+            <div class="tinder1--card">
+                <img src="./images/1.jpg" alt="" srcset="">
+            </div>
+            <div class="tinder1--card">
+                <img src="./images/2.jpg" alt="" srcset="">
+            </div>
+            <div class="tinder1--card">
+                <img src="./images/3.jpg" alt="" srcset="">
+            </div>
+            <div class="tinder1--card">
+                <img src="./images/4.jpg" alt="" srcset="">
+            </div>
+            <div class="tinder1--card">
+                <img src="./images/5.jpg" alt="" srcset="">
+            </div>
+            <div class="tinder1--card">
+                <img src="./images/6.jpg" alt="" srcset="">
+            </div>
+            <div class="tinder1--card">
+                <img src="./images/7.jpg" alt="" srcset="">
+            </div>
+            <div class="tinder1--card">
+                <video src="./images/1.mp4"></video>
+            </div>
+            <div class="tinder1--card">
+                <video src="./images/2.mp4"></video>
+            </div>
+            <div class="tinder1--card">
+                <video src="./images/3.mp4"></video>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-wrapper">
+        <div class="card-title">For my Cutiepie :)</div>
+        <div class="card-subtitle">Tap the card to read</div>
+
+        <div class="card" id="greetingCard">
+            <div class="card-inner">
+
+                <!-- FRONT -->
+                <div class="card-face card-front">
+                    <div>
+                        <h1>HAPPY<br>NEW YEAR</h1>
+                        <span>2026 🎉</span>
+                    </div>
+                </div>
+
+                <!-- BACK (MESSAGE) -->
+                <div class="card-face card-back">
+                    <p>
+                        I hope this year brings you calm mornings,
+                        peaceful nights, and little moments that
+                        make you smile without any reason.
+                    </p>
+
+                    <p>
+                        No matter what this year holds for you,
+                        I hope you always feel supported,
+                        valued, and understood.
+                    </p>
+
+                    <p>
+                        May every challenge turn into strength.
+                        💜
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="script.js"></script>
+    <script src="script-1.js"></script>
+    <script src="script-2.js"></script>
+    <script src="script-3.js"></script>
+    <script src="script-4.js"></script>
+    <script>
+        const card = document.getElementById("greetingCard");
+
+        card.addEventListener("click", () => {
+            card.classList.toggle("open");
+        });
+    </script>
+
+
+</body>
+
+</html>

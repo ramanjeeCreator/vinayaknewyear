@@ -1,0 +1,791 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle at top left, #1e0c29, #050008);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  touch-action: pan-y;
+}
+
+/* ================= PARALLAX STARS ================= */
+.star-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  animation: twinkle ease-in-out infinite;
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.3
+  }
+
+  50% {
+    opacity: 1
+  }
+}
+
+/* ================= SHOOTING STARS ================= */
+.shooting-stars {
+  overflow: hidden;
+}
+
+.shooting-stars section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: url(./bg0.jpg);
+  background-position-x: center;
+  background-size: cover;
+  animation: animateBg 50s linear infinite;
+}
+
+@keyframes animateBg {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.shooting-stars span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1), 0 0 0 8px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 1);
+  animation: animate 3s linear infinite;
+}
+
+.shooting-stars span::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 1px;
+  background: linear-gradient(90deg, #fff, transparent);
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(315deg) translateX(0);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+
+  }
+
+  100% {
+    transform: rotate(315deg) translateX(-1500px);
+    opacity: 0;
+
+  }
+
+}
+
+.shooting-stars span:nth-child(1) {
+  top: 0;
+  right: 0;
+  left: initial;
+  animation-delay: 0;
+  animation-duration: 1s;
+}
+
+.shooting-stars span:nth-child(2) {
+  top: 0;
+  right: 80px;
+  left: initial;
+  animation-delay: 0.2s;
+  animation-duration: 3s;
+}
+
+.shooting-stars span:nth-child(3) {
+  top: 80px;
+  right: 0px;
+  left: initial;
+  animation-delay: 0.4s;
+  animation-duration: 2s;
+}
+
+.shooting-stars span:nth-child(4) {
+  top: 0;
+  right: 180px;
+  left: initial;
+  animation-delay: 0.6s;
+  animation-duration: 1.5s;
+}
+
+.shooting-stars span:nth-child(5) {
+  top: 0;
+  right: 400px;
+  left: initial;
+  animation-delay: 0.8s;
+  animation-duration: 2.5s;
+}
+
+.shooting-stars span:nth-child(6) {
+  top: 0;
+  right: 600px;
+  left: initial;
+  animation-delay: 1s;
+  animation-duration: 3s;
+}
+
+.shooting-stars span:nth-child(7) {
+  top: 300px;
+  right: 0px;
+  left: initial;
+  animation-delay: 1s;
+  animation-duration: 1.75s;
+}
+
+.shooting-stars span:nth-child(8) {
+  top: 0px;
+  right: 700px;
+  left: initial;
+  animation-delay: 1.4s;
+  animation-duration: 1.25s;
+}
+
+.shooting-stars span:nth-child(9) {
+  top: 0px;
+  right: 1000px;
+  left: initial;
+  animation-delay: 0.75s;
+  animation-duration: 2.25s;
+}
+
+.shooting-stars span:nth-child(10) {
+  top: 0px;
+  right: 1000px;
+  left: initial;
+  animation-delay: 2.75s;
+  animation-duration: 2.25s;
+}
+
+/* ================= CARD ================= */
+.main-card {
+  width: 320px;
+  height: 280px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  text-align: center;
+  padding: 30px 20px;
+  color: #fff;
+  z-index: 5;
+}
+
+h2 {
+  color: #ff9edb;
+  font-weight: 500;
+}
+
+p {
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+/* ================= HEART PROGRESS ================= */
+.progress-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 30px auto 10px;
+}
+
+svg {
+  transform: rotate(-90deg);
+}
+
+circle {
+  fill: none;
+  stroke-width: 6;
+}
+
+.bg {
+  stroke: rgba(255, 255, 255, 0.2);
+}
+
+.progress {
+  stroke: #ff4da6;
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+}
+
+.heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 34px;
+  cursor: pointer;
+  animation: none;
+}
+
+/* Heart beating while pressed */
+.pressing .heart {
+  animation: beat 0.6s infinite;
+}
+
+@keyframes beat {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1)
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.3)
+  }
+}
+
+.tap {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+
+/* =============== SCENE =============== */
+.scene {
+  position: relative;
+  width: 280px;
+  height: 340px;
+}
+
+/* =============== GIFT =============== */
+.gift-box {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 130px;
+  height: 130px;
+  background: #e63946;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 50px;
+  z-index: 0;
+}
+
+/* =============== CARDS =============== */
+
+.tinder {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.loaded.tinder {
+  opacity: 1;
+}
+
+.tinder--status {
+  position: absolute;
+  top: 50%;
+  margin-top: -30px;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.tinder--status i {
+  font-size: 100px;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  width: 100px;
+  margin-left: -50px;
+}
+
+.tinder_love .fa-heart {
+  opacity: 0.7;
+  transform: scale(1);
+}
+
+.tinder_nope .fa-remove {
+  opacity: 0.7;
+  transform: scale(1);
+}
+
+.tinder--cards {
+  flex-grow: 1;
+  padding-top: 40px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.tinder--card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90vw;
+  max-width: 300px;
+  height: 300px;
+  background: #FFFFFF;
+  padding-bottom: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: absolute;
+  will-change: transform;
+  transition: all 0.3s ease-in-out;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+  border-radius: 40px;
+  border: 10px solid white;
+}
+
+.moving.tinder--card {
+  transition: none;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+}
+
+.tinder--card img {
+  max-width: 100%;
+  pointer-events: none;
+}
+
+.tinder--card h3 {
+  margin-top: 32px;
+  font-size: 32px;
+  padding: 0 16px;
+  pointer-events: none;
+  color: #655f5f91;
+}
+
+.tinder--card p {
+  margin-top: 24px;
+  font-size: 20px;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.tinder--buttons {
+  flex: 0 0 100px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.tinder--buttons button {
+  border-radius: 50%;
+  line-height: 60px;
+  width: 60px;
+  border: 0;
+  background: #FFFFFF;
+  display: inline-block;
+  margin: 0 8px;
+}
+
+.tinder--buttons button:focus {
+  outline: 0;
+}
+
+.tinder--buttons i {
+  font-size: 32px;
+  vertical-align: middle;
+}
+
+.fa-heart {
+  color: #FFACE4;
+}
+
+.fa-remove {
+  color: #CDD6DD;
+}
+
+
+.card1 {
+  background: rgb(82 206 255);
+}
+
+.card2 {
+  background: rgb(221, 221, 112);
+}
+
+.card3 {
+  background: rgb(218, 181, 113);
+}
+
+.card4 {
+  background: rgb(243, 146, 162);
+}
+
+
+/* 🔴 RED BOX */
+.box{
+  width:200px;
+  height:200px;
+  background: radial-gradient(circle, #ff4d4d, #d40000);
+  box-shadow: 0 0 25px #ff1a1a;
+  cursor:pointer;
+  transition: transform 0.3s ease;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial, sans-serif;
+  color:white;
+  font-weight:bold;
+  letter-spacing:2px;
+  border-radius: 10px;
+}
+
+/* 🔄 HOVER ROTATE (MIN EXTENT) */
+.box:hover{
+  transform: rotate(4deg) scale(1.03);
+}
+
+/* 💥 BLAST ANIMATION */
+@keyframes blast {
+  0%{
+    transform: scale(1) rotate(0deg);
+    opacity:1;
+  }
+  40%{
+    transform: scale(1.3) rotate(10deg);
+  }
+  100%{
+    transform: scale(3);
+    opacity:0;
+  }
+}
+
+.boom{
+  position:absolute;
+  font-size:48px;
+  color:#ffea00;
+  animation: boomText 1.2s ease forwards;
+}
+
+@keyframes boomText{
+  0%{
+    transform: scale(0);
+    opacity:0;
+  }
+  50%{
+    transform: scale(1.3);
+    opacity:1;
+  }
+  100%{
+    transform: scale(1);
+    opacity:0;
+  }
+}
+
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+}
+
+
+
+/* Voucher */
+.voucherCont {
+  width: 350px;
+  height: 230px;
+  border: 5px solid rgba(210, 210, 90, 0.649);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(16, 21, 42);
+  z-index: 1;
+  transform: rotate(5deg);
+  display: none;
+}
+
+.voucher1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px dashed #555;
+}
+
+.color-brown {
+  color: rgba(213, 179, 69)!important;
+  font-size: 48px !important;
+  transform: scale(0.8);
+}
+
+.voucher1 div {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: rgba(255, 166, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.voucher1 h3 {
+  text-transform: uppercase;
+  color: yellow;
+  font-weight: bolder;
+  font-family: cursive;
+  margin: 10px;
+}
+
+.voucher2 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.span1 {
+  color: #555 ;
+  text-transform: uppercase;
+  padding: 10px;
+  font-size: small;
+}
+
+
+.span2{
+  color: #eee;
+  padding: 5px;
+}
+
+.span3 {
+  color: #555 ;
+  padding: 10px;
+  font-size: smaller;
+}
+
+.span4 {
+  color: #eeeeee98 ;
+  text-transform: uppercase;
+  padding: 10px;
+  font-size: medium;
+}
+
+
+/* tinder2 */
+
+.tinder1 {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: opacity 0.1s ease-in-out;
+  z-index: 1;
+  display: none;
+}
+
+.loaded.tinder1 {
+  opacity: 1;
+}
+
+.tinder1--status {
+  position: absolute;
+  top: 50%;
+  margin-top: -30px;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.tinder1--status i {
+  font-size: 100px;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  width: 100px;
+  margin-left: -50px;
+}
+
+.tinder1--cards {
+  flex-grow: 1;
+  padding-top: 40px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.tinder1--card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  height: 500px;
+  background: #FFFFFF;
+  padding-bottom: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: absolute;
+  will-change: transform;
+  transition: all 0.3s ease-in-out;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+  border-radius: 40px;
+  border: 10px solid white;
+}
+
+.moving.tinder1--card {
+  transition: none;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+}
+
+.tinder1--card img {
+  max-width: 100%;
+  pointer-events: none;
+}
+
+.tinder1--card h3 {
+  margin-top: 32px;
+  font-size: 32px;
+  padding: 0 16px;
+  pointer-events: none;
+  color: #655f5f91;
+}
+
+
+
+
+
+
+/* ================= CARD CONTAINER ================= */
+.card-wrapper{
+  text-align:center;
+  color: #eee;
+  font-family: cursive;
+  display: none;
+}
+
+.card-title{
+  font-size:22px;
+  margin-bottom:6px;
+}
+
+.card-subtitle{
+  font-size:14px;
+  opacity:0.7;
+  margin-bottom:20px;
+}
+
+/* ================= CARD ================= */
+.card{
+  width:260px;
+  height:360px;
+  perspective:1200px;
+  cursor:pointer;
+}
+
+/* ================= INNER ================= */
+.card-inner{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform 1s ease;
+}
+
+/* OPEN STATE */
+.card.open .card-inner{
+  transform: rotateY(180deg);
+}
+
+/* ================= CARD FACES ================= */
+.card-face{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:12px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  box-sizing:border-box;
+}
+
+/* FRONT */
+.card-front{
+  background:#f5f1e8;
+  border:6px solid #b678ff;
+  color:#333;
+  text-align:center;
+}
+
+.card-front h1{
+  font-size:28px;
+  color:#d14b4b;
+}
+
+.card-front span{
+  font-size:20px;
+}
+
+/* BACK (INSIDE) */
+.card-back{
+  background:#fdfaf3;
+  border:6px solid #b678ff;
+  transform:rotateY(180deg);
+  color:#333;
+  font-size:15px;
+  line-height:1.6;
+  text-align:left;
+  overflow-y:auto;
+}
+
+/* Scroll bar */
+.card-back::-webkit-scrollbar{
+  width:4px;
+}
+.card-back::-webkit-scrollbar-thumb{
+  background:#b678ff;
+  border-radius:10px;
+}
