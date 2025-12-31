@@ -56,6 +56,7 @@ function startProgress() {
 }
 
 function stopProgress() {
+    initMusic()
     ring.classList.remove('pressing');
     clearInterval(timer);
 }
