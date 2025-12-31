@@ -204,6 +204,7 @@ body {
   padding: 30px 20px;
   color: #fff;
   z-index: 5;
+  scale: 2.5;
 }
 
 h2 {
@@ -309,6 +310,9 @@ circle {
   position: relative;
   opacity: 0;
   transition: opacity 0.1s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .loaded.tinder {
@@ -374,6 +378,7 @@ circle {
   cursor: grab;
   border-radius: 40px;
   border: 10px solid white;
+  scale: 2.4;
 }
 
 .moving.tinder--card {
@@ -470,6 +475,7 @@ circle {
   font-weight:bold;
   letter-spacing:2px;
   border-radius: 10px;
+  scale: 2.4;
 }
 
 /* 🔄 HOVER ROTATE (MIN EXTENT) */
@@ -537,6 +543,7 @@ circle {
   z-index: 1;
   transform: rotate(5deg);
   display: none;
+  scale: 2.4;
 }
 
 .voucher1 {
@@ -670,6 +677,7 @@ circle {
   cursor: grab;
   border-radius: 40px;
   border: 10px solid white;
+  scale: 2.4;
 }
 
 .moving.tinder1--card {
