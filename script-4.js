@@ -1,52 +1,44 @@
+'use strict';
+
+/* ================= SELECT ELEMENTS ================= */
 var tinder1Container = document.querySelector('.tinder1');
 var tinder1Cards = document.querySelectorAll('.tinder1--card');
+
+/* ================= ENTRY ANIMATION ================= */
 function runTinder2() {
-    let el1 = document.querySelector('.voucherCont')
-    el1.classList.add('animate__fadeOutDown')
+    let el1 = document.querySelector('.voucherCont');
+    el1.classList.add('animate__fadeOutDown');
     setTimeout(() => {
-        el1.style.display = 'none'
-        tinder1Container.style.display = 'flex'
-    }, 800);
+        el1.style.display = 'none';
+        tinder1Container.style.display = 'flex';
+    }, 1400);
 }
 
-var swipeCount = 0; // 🔢 total swipes counter
-
+/* ================= INIT STACK (ONCE) ================= */
 function initTinder1Cards() {
-    var activeCards = document.querySelectorAll('.tinder1--card:not(.removed)');
-
-    activeCards.forEach(function (card, index) {
+    tinder1Cards.forEach(function (card, index) {
         card.style.zIndex = tinder1Cards.length - index;
-        card.style.transform =
-            'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';
         card.style.opacity = (10 - index) / 10;
     });
 
     tinder1Container.classList.add('loaded');
-
-    // ▶️ Play video if top card is video
     playTopVideo();
 }
 
 initTinder1Cards();
 
-/* ===============================
-   PLAY VIDEO WHEN ON TOP
-================================ */
+/* ================= VIDEO CONTROL ================= */
 function playTopVideo() {
-    var topCard = document.querySelector('.tinder1--card:not(.removed)');
+    var topCard = document.querySelector('.tinder1--card');
     if (!topCard) return;
 
     var video = topCard.querySelector('video');
     if (video) {
         video.currentTime = 0;
         video.play();
-        console.log('Playing video:', video.src);
     }
 }
 
-/* ===============================
-   PAUSE VIDEO WHEN SWIPED
-================================ */
 function stopVideo(card) {
     var video = card.querySelector('video');
     if (video) {
@@ -55,83 +47,53 @@ function stopVideo(card) {
     }
 }
 
-/* ===============================
-   HAMMER SWIPE
-================================ */
+/* ================= HAMMER DRAG ================= */
 tinder1Cards.forEach(function (card) {
-    var hammer = new Hammer(card);
 
-    hammer.on('panstart', function () {
-        card.classList.add('moving');
+    /* Store absolute position per card */
+    card._posX = 0;
+    card._posY = 0;
+
+    var hammer = new Hammer(card);
+    hammer.get('pan').set({
+        direction: Hammer.DIRECTION_ALL,
+        threshold: 0
     });
 
+    /* DRAGGING */
     hammer.on('panmove', function (event) {
-        if (event.deltaX === 0) return;
+        card.classList.add('moving');
 
-        var x = event.deltaX * 0.03;
-        var y = event.deltaY / 80;
-        var rotate = x * y;
+        var x = card._posX + event.deltaX;
+        var y = card._posY + event.deltaY;
+        var rotate = x * 0.05;
 
         card.style.transform =
-            'translate(' + event.deltaX + 'px,' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
+            'translate(' + x + 'px, ' + y + 'px) rotate(' + rotate + 'deg)';
     });
 
+    /* RELEASE → SAVE POSITION */
     hammer.on('panend', function (event) {
         card.classList.remove('moving');
 
-        var screenWidth = document.body.clientWidth;
-        var shouldKeep =
-            Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+        card._posX += event.deltaX;
+        card._posY += event.deltaY;
 
-        card.classList.toggle('removed', !shouldKeep);
-
-        if (shouldKeep) {
-            card.style.transform = '';
-            return;
-        }
-
-        // 🔢 swipe counter
-        swipeCount++;
-
-        // ✅ CHECK IF ALL 10 SWIPED
-        if (swipeCount === tinder1Cards.length) {
-            onAllCardsSwiped();
-        }
-
-        // ⏹ stop video if current card is video
-        stopVideo(card);
-
-        // 👉 swipe direction
-        var direction = event.deltaX > 0 ? 'RIGHT' : 'LEFT';
-        console.log('Swiped', direction, 'Card:', swipeCount);
-
-        // move card out
-        var endX = Math.max(
-            Math.abs(event.velocityX) * screenWidth,
-            screenWidth
-        );
-        var toX = event.deltaX > 0 ? endX : -endX;
-        var toY = event.deltaY;
+        var rotate = card._posX * 0.05;
 
         card.style.transform =
-            'translate(' + toX + 'px,' + toY + 'px) rotate(20deg)';
-
-        // re-init stack
-        initTinder1Cards();
+            'translate(' + card._posX + 'px, ' + card._posY + 'px) rotate(' + rotate + 'deg)';
     });
 });
 
-
+/* ================= OPTIONAL MANUAL COMPLETE ================= */
+// Call this manually when YOU decide all cards are done
 function onAllCardsSwiped() {
-    console.log("🎉 All 10 cards swiped!");
-    tinder1Container.classList.add('animate__fadeOut')
-    setTimeout(() => {
-        tinder1Container.style.display = 'none'
-        document.querySelector('.card-wrapper').style.display = 'block'
-    }, 400);
-    // 👇 yahan jo chahiye wo likho
-    // alert("All moments completed!");
-    // startConfetti();
-    // playFinalVideo();
-}
+    console.log("🎉 All cards completed!");
 
+    tinder1Container.classList.add('animate__fadeOut');
+    setTimeout(() => {
+        tinder1Container.style.display = 'none';
+        document.querySelector('.card-wrapper').style.display = 'block';
+    }, 400);
+}

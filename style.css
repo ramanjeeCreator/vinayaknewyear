@@ -444,18 +444,22 @@ circle {
 
 .card1 {
   background: rgb(82 206 255);
+  z-index: 8;
 }
 
 .card2 {
   background: rgb(221, 221, 112);
+  z-index: 7;
 }
 
 .card3 {
   background: rgb(218, 181, 113);
+  z-index: 6;
 }
 
 .card4 {
   background: rgb(243, 146, 162);
+  z-index: 5;
 }
 
 
@@ -524,9 +528,12 @@ circle {
 /* Confetti */
 .confetti {
     position: fixed;
-    width: 10px;
-    height: 10px;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
     pointer-events: none;
+    will-change: transform, opacity;
 }
 
 

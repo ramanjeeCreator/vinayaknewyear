@@ -1,66 +1,86 @@
+/* ===============================
+   BLAST BOX FUNCTION
+================================ */
 function blastBox(el) {
-    el.style.animation = "blast 0.8s ease forwards";
+    // Prevent multiple triggers
+    if (el.dataset.blasted) return;
+    el.dataset.blasted = "true";
 
-    // 🎉 Birthday Boom Text
-    const boom = document.createElement("div");
-    createConfetti()
-    // boom.className = "boom";
-    // boom.innerHTML = "🎂 BOOM! 🎉<br>HAPPY BIRTHDAY!";
-    // document.body.appendChild(boom);
+    // Blast animation
+    el.style.animation = "blast 0.6s ease forwards";
 
-    boom.style.left = "50%";
-    boom.style.top = "50%";
-    boom.style.transform = "translate(-50%, -50%)";
+    // Confetti
+    createConfettiOptimized();
 
+    // Hide tinder cards
+    const tinder = document.querySelector('.tinder');
+    if (tinder) tinder.style.display = 'none';
+
+    // Show voucher
     setTimeout(() => {
-        boom.remove();
-    }, 1200);
-    document.querySelector('.tinder').style.display = 'none';
-    setTimeout(() => {
-        document.querySelector('.voucherCont').style.display = 'flex'
-    }, 800);
-
+        const voucher = document.querySelector('.voucherCont');
+        if (voucher) voucher.style.display = 'flex';
+    }, 1600);
 }
 
+/* ===============================
+   OPTIMIZED CONFETTI ENGINE
+================================ */
+function createConfettiOptimized() {
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion)').matches) return;
 
-function createConfetti() {
-    const colors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3'];
-    const confettiCount = 500;
+    const colors = ['#ff3b3b', '#ffb300', '#00e676', '#2979ff', '#d500f9'];
+    const COUNT = window.innerWidth < 600 ? 70 : 120;
 
-    for (let i = 0; i < confettiCount; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.left = window.innerWidth / 2 + 'px';
-        confetti.style.top = window.innerHeight / 2 + 'px';
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-        document.body.appendChild(confetti);
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
 
-        const angle = (Math.PI * 2 * i) / confettiCount;
-        const velocity = 5 + Math.random() * 25;
-        const vx = Math.cos(angle) * velocity;
-        const vy = Math.sin(angle) * velocity - 3;
+    const particles = [];
 
-        let x = window.innerWidth / 2;
-        let y = window.innerHeight / 2;
-        let velX = vx;
-        let velY = vy;
+    for (let i = 0; i < COUNT; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti';
+        el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
-        const animate = () => {
-            x += velX;
-            y += velY;
-            velY += 0.1; // gravity
-            confetti.style.left = x + 'px';
-            confetti.style.top = y + 'px';
-            confetti.style.opacity = Math.max(0, 1 - (y - window.innerHeight / 2) / 300);
+        document.body.appendChild(el);
 
-            if (y < window.innerHeight + 100) {
-                requestAnimationFrame(animate);
-            } else {
-                confetti.remove();
-            }
-        };
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 8 + 6;
 
-        animate();
+        particles.push({
+            el,
+            x: centerX,
+            y: centerY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 6,
+            life: 0
+        });
     }
+
+    function animate() {
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.35; // gravity
+            p.life++;
+
+            p.el.style.transform =
+                `translate3d(${p.x}px, ${p.y}px, 0) rotate(${p.life * 4}deg)`;
+            p.el.style.opacity = 1 - p.life / 120;
+
+            if (p.life > 120) {
+                p.el.remove();
+                particles.splice(i, 1);
+            }
+        }
+
+        if (particles.length) {
+            requestAnimationFrame(animate);
+        }
+    }
+
+    requestAnimationFrame(animate);
 }
